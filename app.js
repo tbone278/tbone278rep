@@ -1,13 +1,72 @@
+let airports = [];
 
-const airports=[
- {iata:'BKK',icao:'VTBS',name:'Suvarnabhumi Airport',city:'Bangkok',country:'Thailand'},
- {iata:'SYD',icao:'YSSY',name:'Sydney Airport',city:'Sydney',country:'Australia'},
- {iata:'FRA',icao:'EDDF',name:'Frankfurt Airport',city:'Frankfurt',country:'Germany'}
-];
-document.getElementById('search').addEventListener('input',e=>{
- const v=e.target.value.toUpperCase();
- const a=airports.find(x=>x.iata===v);
- document.getElementById('result').innerHTML=a?
- `${a.name}<br>IATA: ${a.iata}<br>ICAO: ${a.icao}<br>${a.city}, ${a.country}`
- :'No match';
+const searchInput = document.getElementById("search");
+const result = document.getElementById("result");
+
+fetch("./airports.json")
+  .then(response => response.json())
+  .then(data => {
+    airports = data;
+    result.innerHTML = `Loaded ${airports.length.toLocaleString()} airports`;
+  })
+  .catch(error => {
+    result.innerHTML = "Failed to load airport database";
+    console.error(error);
+  });
+
+searchInput.addEventListener("input", function () {
+
+  const query = this.value.trim().toLowerCase();
+
+  if (query.length < 2) {
+    result.innerHTML = "Enter at least 2 characters";
+    return;
+  }
+
+  const matches = airports.filter(a => {
+
+    const iata = (a.iata || "").toLowerCase();
+    const icao = (a.icao || "").toLowerCase();
+    const name = (a.name || "").toLowerCase();
+    const city = (a.city || "").toLowerCase();
+
+    return (
+      iata.includes(query) ||
+      icao.includes(query) ||
+      name.includes(query) ||
+      city.includes(query)
+    );
+
+  }).slice(0, 20);
+
+  if (matches.length === 0) {
+    result.innerHTML = "No airports found";
+    return;
+  }
+
+  result.innerHTML = matches.map(a => {
+
+    const mapsUrl =
+      `https://maps.apple.com/?ll=${a.lat},${a.lon}`;
+
+    return `
+      <div class="card">
+
+        <h3>${a.iata} | ${a.city || "-"} | ${a.country}</h3>
+
+        <strong>${a.name}</strong><br><br>
+
+        IATA: ${a.iata}<br>
+        ICAO: ${a.icao || "-"}<br><br>
+
+        <a href="${mapsUrl}"
+           target="_blank">
+           Open in Apple Maps
+        </a>
+
+      </div>
+    `;
+
+  }).join("");
+
 });
