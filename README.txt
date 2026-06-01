@@ -1,0 +1,1 @@
+Aviation-style starter PWA. Replace the sample airport list in app.js with a full IATA database and deploy via GitHub Pages.
