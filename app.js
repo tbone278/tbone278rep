@@ -87,3 +87,24 @@ searchInput.addEventListener("input", function () {
   }).join("");
 
 });
+function renderFavorites() {
+
+  const container = document.getElementById("favorites");
+
+  const favorites = getFavorites();
+
+  if (favorites.length === 0) {
+    container.innerHTML = "No favorites yet";
+    return;
+  }
+
+  const favAirports = airports.filter(a =>
+    favorites.includes(a.iata)
+  );
+
+  container.innerHTML = favAirports.map(a => `
+      <div class="card">
+        ⭐ ${a.iata} | ${a.city}
+      </div>
+  `).join("");
+}
