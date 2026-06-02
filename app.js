@@ -1,3 +1,20 @@
+const favoritesKey = "airportFavorites";
+function getFavorites() {
+  return JSON.parse(localStorage.getItem(favoritesKey) || "[]");
+}
+function saveFavorites(favorites) {
+  localStorage.setItem(favoritesKey, JSON.stringify(favorites));
+}
+function toggleFavorite(iata) {
+  let favorites = getFavorites();
+  if (favorites.includes(iata)) {
+    favorites = favorites.filter(f => f !== iata);
+  } else {
+    favorites.push(iata);
+  }
+  saveFavorites(favorites);
+  renderFavorites();
+}
 let airports = [];
 
 const searchInput = document.getElementById("search");
