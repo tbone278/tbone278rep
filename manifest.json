@@ -1,1 +1,2 @@
-{"name":"Airport Finder","short_name":"AirportFinder","display":"standalone","start_url":"./"}
+
+{"name":"Airport Finder","short_name":"AirportFinder","display":"standalone","start_url":"./","background_color":"#000000","theme_color":"#00ff66"}

@@ -1,1 +1,9 @@
-body{background:#0b0b0b;color:#f5b041;font-family:Consolas,monospace;margin:0;padding:20px}.container{max-width:900px;margin:auto}input{width:100%;padding:14px;font-size:18px}.card{border:1px solid #444;padding:12px;margin:10px 0;background:#111}a{color:#7fb3ff}button{padding:8px 12px;cursor:pointer}
+
+body{background:#000;color:#00ff66;font-family:Consolas,monospace;margin:0;padding:20px}
+.container{max-width:950px;margin:auto}
+h1{text-align:center;letter-spacing:3px}
+input{width:100%;padding:14px;font-size:18px;background:#111;color:#00ff66;border:1px solid #00aa44}
+.card{border:1px solid #00aa44;background:#081108;padding:12px;margin:10px 0}
+a{color:#66ff99}
+#status{margin:12px 0}
+.time{font-weight:bold}
